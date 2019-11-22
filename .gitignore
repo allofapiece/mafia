@@ -1,0 +1,16 @@
+# IntelliJ IDEA project files
+.idea
+*.iml
+target
+out
+
+# log files and other runtime content
+*\.log
+runtime
+
+# local properties
+/**/*-local.properties
+/**/*-local.conf
+
+# environmet
+.env
