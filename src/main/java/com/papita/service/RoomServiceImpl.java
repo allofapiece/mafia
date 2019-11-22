@@ -8,6 +8,8 @@ import com.papita.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @version 1.0.0
  */
@@ -29,5 +31,10 @@ public class RoomServiceImpl implements RoomService {
         room.addUser(user);
 
         return roomRepository.save(room);
+    }
+
+    @Override
+    public List<Room> getRooms() {
+        return roomRepository.findAll();
     }
 }
