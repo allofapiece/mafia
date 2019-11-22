@@ -23,7 +23,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn
     private Room room;
 }
