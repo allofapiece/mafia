@@ -2,8 +2,10 @@ package com.papita.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,7 +14,13 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(of = {"id"})
+@NoArgsConstructor
 public class Room {
+    public Room(User user, int usersAmount) {
+        this.user = user;
+        this.usersAmount = usersAmount;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,5 +32,9 @@ public class Room {
     private int usersAmount;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
 }
