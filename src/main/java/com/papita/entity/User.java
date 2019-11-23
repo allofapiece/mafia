@@ -16,8 +16,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
-    public User(String username, String sessionId) {
+    public User(String username, Long roomId, String sessionId) {
         this.username = username;
+        this.roomId = roomId;
         this.sessionId = sessionId;
     }
 
@@ -26,7 +27,7 @@ public class User {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.CITIZEN;
 
     @Expose(serialize = false, deserialize = false)
     private String sessionId;
@@ -35,9 +36,7 @@ public class User {
 
     private String username;
 
-    @ManyToOne()
-    @JoinColumn
-    private Room room;
+    private Long roomId;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.WAIT;

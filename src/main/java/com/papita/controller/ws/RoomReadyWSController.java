@@ -37,10 +37,12 @@ public class RoomReadyWSController {
     @OnOpen
     public void onOpen(@PathParam("roomId") Long roomId, @PathParam("id") Long id, Session session) throws IOException, EncodeException {
         sessionHolder.addSession(session);
+        User user1 = userService.get(id).get();
+        user1.setSessionId(session.getId());
+        userService.save(user1);
         userService.setStatusForUser(id, Status.READY);
 
         if (userService.isAllReady(roomId)) {
-            broadCaster.broadcast(session, new Message(roomService.get(roomId).getUsers()), roomService.get(roomId));
             int amount = roomService.mafiasAmount(roomId);
 
             Room room = roomService.get(roomId);
@@ -52,6 +54,10 @@ public class RoomReadyWSController {
 
             List<Long> ids = map.values().stream().collect(lastN(amount));
             userService.setMafias(ids);
+
+            for (User user: room.getUsers()) {
+                broadCaster.sendForSession(sessionHolder.getSession(user.getSessionId()), new Message(user));
+            }
         }
     }
 

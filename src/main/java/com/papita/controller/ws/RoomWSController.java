@@ -30,6 +30,7 @@ public class RoomWSController {
         User user = roomService.join(roomId, username, session);
         sessionHolder.addSession(session);
         broadCaster.broadcast(session, new Message(roomService.get(roomId).getUsers()), roomService.get(roomId));
+        broadCaster.broadcast(session, new Message(user));
     }
 
     @OnMessage

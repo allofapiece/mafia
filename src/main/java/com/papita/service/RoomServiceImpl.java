@@ -43,7 +43,7 @@ public class RoomServiceImpl implements RoomService {
     public User join(Long roomId, String username, Session session) {
         //TODO process not found room
         Room room = roomRepository.findById(roomId).get();
-        User user = userService.createUser(username, session);
+        User user = userService.createUser(username, roomId, session);
 
         room.addUser(user);
         roomRepository.saveAndFlush(room);
