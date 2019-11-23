@@ -18,8 +18,20 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+    @Override
+    public User get(Long id) {
+        return userRepository.findById(id).get();
+    }
+
     public User createUser(String username, Session session) {
         User user = new User(username, session.getId());
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public User createUser(String username) {
+        User user = new User(username);
         userRepository.save(user);
 
         return user;
