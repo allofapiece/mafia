@@ -22,6 +22,11 @@ public class User {
         this.sessionId = sessionId;
     }
 
+
+    public User(String username) {
+        this.username = username;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

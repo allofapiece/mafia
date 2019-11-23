@@ -5,6 +5,7 @@ import com.papita.entity.User;
 import com.papita.service.BroadCaster;
 import com.papita.service.RoomService;
 import com.papita.service.SessionHolder;
+import com.papita.service.UserService;
 import com.papita.service.converter.*;
 import com.papita.websockets.model.Message;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,19 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@ServerEndpoint(value = "/room/{roomId}/join/{username}", decoders = MessageDecoder.class, encoders = MessageEncoder.class, configurator = WebSocketConfigurator.class)
+@ServerEndpoint(value = "/room/{roomId}/join/{userId}", decoders = MessageDecoder.class, encoders = MessageEncoder.class, configurator = WebSocketConfigurator.class)
 public class RoomWSController {
     private final RoomService roomService;
+
+    private final UserService userService;
 
     private final BroadCaster broadCaster;
 
     private final SessionHolder sessionHolder;
 
     @OnOpen
-    public void onOpen(@PathParam("roomId") Long roomId, @PathParam("username") String username, Session session) throws IOException, EncodeException {
-        User user = roomService.join(roomId, username, session);
+    public void onOpen(@PathParam("roomId") Long roomId, @PathParam("userId") Long userId, Session session) throws IOException, EncodeException {
+        User user = roomService.join(roomId, userId, session);
         sessionHolder.addSession(session);
         broadCaster.broadcast(session, new Message(roomService.get(roomId).getUsers()), roomService.get(roomId));
         broadCaster.broadcast(session, new Message(user));
@@ -39,8 +42,10 @@ public class RoomWSController {
     }
 
     @OnClose
-    public void onClose(Session session) throws IOException, EncodeException {
+    public void onClose(@PathParam("roomId") Long roomId, @PathParam("userId") Long userId, Session session) throws IOException, EncodeException {
+        User user = roomService.unjoin(roomId, userId);
         sessionHolder.remove(session.getId());
+        broadCaster.broadcast(session, new Message(roomService.get(roomId).getUsers()), roomService.get(roomId));
     }
 
     @OnError

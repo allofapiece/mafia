@@ -38,6 +38,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    public User createUser(String username) {
+        User user = new User(username);
+        userRepository.save(user);
+
+        return user;
+    }
+
     @Override
     public void setStatusForUser(Long id, Status status) {
         User user = userRepository.findById(id).get();
