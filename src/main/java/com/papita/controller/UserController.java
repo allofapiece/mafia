@@ -1,6 +1,7 @@
 package com.papita.controller;
 
 import com.papita.service.UserService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/api/users")
-    public @ResponseBody Response createUser(@RequestBody String username) {
-        return new Response(userService.createUser(username));
+    public @ResponseBody Response createUser(@RequestBody UserDto username) {
+        return new Response(userService.createUser(username.getUsername()));
+    }
+
+    @Data
+    class UserDto {
+        String username;
+
     }
 
 }

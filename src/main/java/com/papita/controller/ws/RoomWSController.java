@@ -43,9 +43,9 @@ public class RoomWSController {
 
     @OnClose
     public void onClose(@PathParam("roomId") Long roomId, @PathParam("userId") Long userId, Session session) throws IOException, EncodeException {
-        User user = roomService.unjoin(roomId, userId);
         sessionHolder.remove(session.getId());
         broadCaster.broadcast(session, new Message(roomService.get(roomId).getUsers()), roomService.get(roomId));
+        roomService.unjoin(roomId, userId);
     }
 
     @OnError
