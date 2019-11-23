@@ -42,7 +42,8 @@ public class RoomServiceImpl implements RoomService {
     public User join(Long roomId, Long userId, Session session) {
         //TODO process not found room
         Room room = roomRepository.findById(roomId).get();
-        User user = userService.createUser(userId, roomId, session);
+        User user = userService.get(userId);
+        user.setSessionId(session.getId());
 
         room.addUser(user);
 

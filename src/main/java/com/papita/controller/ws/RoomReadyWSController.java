@@ -37,7 +37,7 @@ public class RoomReadyWSController {
     @OnOpen
     public void onOpen(@PathParam("roomId") Long roomId, @PathParam("id") Long id, Session session) throws IOException, EncodeException {
         sessionHolder.addSession(session);
-        User user1 = userService.get(id).get();
+        User user1 = userService.get(id);
         user1.setSessionId(session.getId());
         userService.save(user1);
         userService.setStatusForUser(id, Status.READY);

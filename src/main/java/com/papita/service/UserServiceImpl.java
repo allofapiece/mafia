@@ -27,15 +27,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> get(Long id) {
-        return userRepository.findById(id);
-    }
-
-    public User createUser(String username, Long roomId, Session session) {
-        User user = new User(username, roomId, session.getId());
-        userRepository.save(user);
-
-        return user;
+    public User get(Long id) {
+        return userRepository.findById(id).get();
     }
 
     public User createUser(String username) {

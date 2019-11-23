@@ -13,13 +13,9 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    User createUser(String username, Session session);
-
     User save(User user);
 
-    Optional<User> get(Long id);
-
-    User createUser(String username, Long roomId, Session session);
+    User get(Long id);
 
     User createUser(String username);
 
