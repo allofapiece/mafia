@@ -44,7 +44,7 @@ public class RoomServiceImpl implements RoomService {
         Room room = roomRepository.findById(roomId).get();
         User user = userService.get(userId);
         user.setSessionId(session.getId());
-
+        user.setRoomId(roomId);
         room.addUser(user);
 
         roomRepository.saveAndFlush(room);
