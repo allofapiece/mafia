@@ -25,10 +25,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Expose(serialize = false, deserialize = false)
     private String sessionId;
 
+    private boolean isAlive;
+
     private String username;
+
+    @ManyToOne()
+    @JoinColumn
+    private Room room;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.WAIT;

@@ -1,6 +1,5 @@
 package com.papita.config;
 
-import com.papita.entity.Role;
 import com.papita.entity.Room;
 import com.papita.entity.User;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +15,6 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
     public void configureRepositoryRestConfiguration(
             RepositoryRestConfiguration config) {
         super.configureRepositoryRestConfiguration(config);
-        config.exposeIdsFor(Role.class, Room.class, User.class);
+        config.exposeIdsFor(R1ole.class, Room.class, User.class);
     }
 }

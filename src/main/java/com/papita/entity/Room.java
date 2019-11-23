@@ -30,6 +30,7 @@ public class Room {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
+
     public void addUser(User user) {
         this.users.add(user);
     }

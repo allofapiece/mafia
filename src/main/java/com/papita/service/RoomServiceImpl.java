@@ -22,7 +22,7 @@ public class RoomServiceImpl implements RoomService {
     private final UserService userService;
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
-
+    private static final int RATIO = 3;
 
     @Override
     public Room createRoom(RoomDto roomDto) {
@@ -49,5 +49,12 @@ public class RoomServiceImpl implements RoomService {
         roomRepository.saveAndFlush(room);
 
         return user;
+    }
+
+    @Override
+    public int mafiasAmount(Long roomId) {
+        Room room = roomRepository.findById(roomId).get();
+
+        return (int) Math.floor(room.getUsersAmount() / (RATIO + 1));
     }
 }

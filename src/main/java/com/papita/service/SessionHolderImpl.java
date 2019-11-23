@@ -26,6 +26,14 @@ public class SessionHolderImpl implements SessionHolder {
         return this.sessions.get(id);
     }
 
+    public Session getSession(Session session) {
+        if (!sessions.containsKey(session.getId())) {
+            addSession(session);
+        }
+
+        return getSession(session.getId());
+    }
+
     public Map<String, Session> getSessions() {
         return this.sessions;
     }

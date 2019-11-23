@@ -19,4 +19,6 @@ public interface RoomService {
     Room get(Long id);
 
     User join(Long roomId, String username, Session session);
+
+    int mafiasAmount(Long roomId);
 }
