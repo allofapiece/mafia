@@ -3,13 +3,15 @@ package com.papita.controller;
 import com.papita.entity.dto.RoomDto;
 import com.papita.service.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @version 1.0.0
  */
-@RequestMapping("/api/rooms")
-@RestController()
+@RestController("/api/rooms")
 @RequiredArgsConstructor
 public class RoomController {
     private final RoomService roomService;
@@ -23,6 +25,4 @@ public class RoomController {
     public Response getRooms() {
         return new Response(roomService.getRooms());
     }
-
-
 }

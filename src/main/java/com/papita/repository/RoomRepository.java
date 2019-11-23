@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource(excerptProjection = RoomProjection.class, collectionResourceRel = "rooms", path = "rooms")
 public interface RoomRepository extends JpaRepository<Room, Long> {
+    Room getById(Long id);
 }
